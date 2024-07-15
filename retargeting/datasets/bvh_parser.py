@@ -59,9 +59,11 @@ class BVH_file:
     def __init__(self, file_path=None, args=None, dataset=None, new_root=None):
         if file_path is None:
             file_path = get_std_bvh(dataset=dataset)
+
         self.anim, self._names, self.frametime = BVH.load(file_path)
         if new_root is not None:
             self.set_new_root(new_root)
+
         self.skeleton_type = -1
         self.edges = []
         self.edge_mat = []
@@ -131,7 +133,6 @@ class BVH_file:
         self.simplified_name = []
         self.simplify_map = {}
         self.inverse_simplify_map = {}
-
         for name in corps_names[self.skeleton_type]:
             for j in range(self.anim.shape[1]):
                 if name == self._names[j]:
@@ -318,4 +319,4 @@ class BVH_file:
         names = self._names.copy()
         for i, j in enumerate(new_seq):
             self._names[i] = names[j]
-        self.anim.parents = np.array(new_parent, dtype=np.int)
+        self.anim.parents = np.array(new_parent, dtype=int)
