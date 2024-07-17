@@ -19,7 +19,8 @@ import BVH_mod as BVH
 def split_joint(file_name, save_file=None):
     if save_file is None:
         save_file = file_name
-    target_joints = ['Spine1', 'LeftShoulder', 'RightShoulder']
+    target_joints = ['Spine', 'Spine1']
+    # target_joints = ['Spine1', 'LeftShoulder', 'RightShoulder']
     target_idx = [-1] * len(target_joints)
     anim, names, ftime = BVH.load(file_name)
 
@@ -86,7 +87,7 @@ def batch_split(source, dest):
     files = [f for f in os.listdir(source) if f.endswith('.bvh')]
     try:
         bvh_file = BVH_file(os.path.join(source, files[0]))
-        if bvh_file.skeleton_type != 1: return
+        if bvh_file.skeleton_type != 1 and bvh_file.skeleton_type != 4: return
     except:
         return
 
@@ -104,4 +105,5 @@ if __name__ == '__main__':
     names = [f for f in os.listdir(prefix) if os.path.isdir(os.path.join(prefix, f))]
 
     for name in names:
-        batch_split(os.path.join(prefix, name), os.path.join(prefix, name + '_m'))
+        if name == 'Mark':
+            batch_split(os.path.join(prefix, name), os.path.join(prefix, name + '_split'))

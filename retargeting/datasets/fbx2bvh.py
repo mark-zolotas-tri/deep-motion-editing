@@ -28,8 +28,8 @@ for d in directories:
 
         frame_end = np.max([60, frame_end])
         bpy.ops.export_anim.bvh(filepath=dumppath,
-                                frame_start=frame_start,
-                                frame_end=frame_end, root_transform_only=True)
+                                frame_start=int(frame_start),
+                                frame_end=int(frame_end), root_transform_only=True)
         bpy.data.actions.remove(bpy.data.actions[-1])
 
         print(data_path + d + "/" + f + " processed.")
